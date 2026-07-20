@@ -1,0 +1,17 @@
+{
+  "name": "한손 투표",
+  "short_name": "한손 투표",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f6fb",
+  "theme_color": "#5b4bff",
+  "description": "한 기기를 돌려가며 진행하는 모바일 현장 투표 앱",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
