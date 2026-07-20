@@ -105,8 +105,8 @@
       <section class="screen hero">
         <div class="hero-mark" aria-hidden="true">✓</div>
         <div>
-          <h1>한 기기로<br>빠르게 투표</h1>
-          <p>후보를 만들고, 기기를 돌려가며 익명으로 투표한 뒤<br>현장에서 바로 결과를 공개하세요.</p>
+          <h1>수원 독스📚<br>오프라인 서평 투표</h1>
+          <p>한 기기를 돌려가며 익명으로 투표한 뒤<br>현장에서 바로 결과를 공개하세요.</p>
         </div>
         <button id="createSurveyButton" class="primary-button" type="button">설문 만들기</button>
       </section>
@@ -144,7 +144,7 @@
         <form id="surveyForm" class="card" novalidate>
           <div class="field">
             <label class="field-label" for="surveyTitle">설문 타이틀</label>
-            <input id="surveyTitle" class="text-input" type="text" maxlength="60" placeholder="예: 오늘의 발표 1등은?" value="${escapeHtml(state.survey.title)}" />
+            <input id="surveyTitle" class="text-input" type="text" maxlength="60" placeholder="예: 오늘의 우수서평" value="${escapeHtml(state.survey.title)}" />
           </div>
 
           <div class="field">
@@ -303,7 +303,7 @@
   }
 
   function runCountdown() {
-    let remaining = 3;
+    let remaining = 2;
     countdownNumber.textContent = String(remaining);
     countdownMessage.textContent = state.currentVoter >= state.survey.voterCount
       ? '모든 투표가 끝났습니다'
