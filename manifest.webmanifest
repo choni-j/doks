@@ -1,6 +1,6 @@
 {
-  "name": "한손 투표",
-  "short_name": "한손 투표",
+  "name": "독스 투표",
+  "short_name": "독스 투표",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f5f6fb",
