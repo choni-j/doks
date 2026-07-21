@@ -15,7 +15,7 @@
     survey: {
       title: '',
       candidates: ['', ''],
-      voterCount: 1,
+      voterCount: 3,
     },
     votes: {},
     currentVoter: 0,
