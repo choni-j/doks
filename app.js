@@ -157,12 +157,40 @@
           </div>
 
           <div class="field">
-            <label class="field-label" for="voterCount">
-              <span>투표자 수</span>
-              <small>후보 수와 달라도 됩니다</small>
-            </label>
-            <input id="voterCount" class="number-input" type="number" inputmode="numeric" min="1" max="999" value="${state.survey.voterCount}" />
-          </div>
+  <label class="field-label" for="voterCount">
+    <span>투표자 수</span>
+    <small>후보 수와 달라도 됩니다</small>
+  </label>
+
+  <div class="number-stepper">
+    <button
+      id="decreaseVoterCount"
+      class="stepper-button"
+      type="button"
+      aria-label="투표자 수 1명 줄이기"
+      ${state.survey.voterCount <= 1 ? 'disabled' : ''}
+    >−</button>
+
+    <input
+      id="voterCount"
+      class="number-input"
+      type="number"
+      inputmode="numeric"
+      min="1"
+      max="999"
+      value="${state.survey.voterCount}"
+      aria-label="투표자 수"
+    />
+
+    <button
+      id="increaseVoterCount"
+      class="stepper-button"
+      type="button"
+      aria-label="투표자 수 1명 늘리기"
+      ${state.survey.voterCount >= 999 ? 'disabled' : ''}
+    >＋</button>
+  </div>
+</div>
 
           <div class="form-actions">
             <button class="primary-button" type="submit">설문 진행</button>
@@ -173,17 +201,58 @@
 
     const titleInput = document.getElementById('surveyTitle');
     const voterCountInput = document.getElementById('voterCount');
+const decreaseVoterCountButton =
+  document.getElementById('decreaseVoterCount');
 
+const increaseVoterCountButton =
+  document.getElementById('increaseVoterCount');
     titleInput.addEventListener('input', (event) => {
       state.survey.title = event.target.value;
       saveState();
     });
 
-    voterCountInput.addEventListener('input', (event) => {
-      const value = Number(event.target.value);
-      state.survey.voterCount = Number.isFinite(value) ? value : 1;
-      saveState();
-    });
+function setVoterCount(nextValue) {
+  const normalizedValue = Math.min(
+    999,
+    Math.max(1, Math.floor(Number(nextValue) || 1))
+  );
+
+  state.survey.voterCount = normalizedValue;
+  voterCountInput.value = String(normalizedValue);
+
+  decreaseVoterCountButton.disabled = normalizedValue <= 1;
+  increaseVoterCountButton.disabled = normalizedValue >= 999;
+
+  saveState();
+}
+
+voterCountInput.addEventListener('input', (event) => {
+  const value = Math.floor(Number(event.target.value));
+
+  if (Number.isFinite(value) && value >= 1) {
+    state.survey.voterCount = Math.min(999, value);
+
+    decreaseVoterCountButton.disabled =
+      state.survey.voterCount <= 1;
+
+    increaseVoterCountButton.disabled =
+      state.survey.voterCount >= 999;
+
+    saveState();
+  }
+});
+
+voterCountInput.addEventListener('blur', () => {
+  setVoterCount(voterCountInput.value);
+});
+
+decreaseVoterCountButton.addEventListener('click', () => {
+  setVoterCount(state.survey.voterCount - 1);
+});
+
+increaseVoterCountButton.addEventListener('click', () => {
+  setVoterCount(state.survey.voterCount + 1);
+});
 
     document.querySelectorAll('.candidate-name-input').forEach((input) => {
       input.addEventListener('input', (event) => {
